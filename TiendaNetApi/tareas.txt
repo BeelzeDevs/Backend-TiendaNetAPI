@@ -1,0 +1,40 @@
+/Features
+ └── Ingrediente
+     └── Model
+        ├── Ingrediente.cs
+ └── IngredienteXReceta
+     └── Model
+        ├── IngredienteXReceta.cs
+ └── Menu
+     └── Model
+        ├── Menu.cs
+ └── Receta
+     └── Model
+        ├── Receta.cs
+ └── RecetaXMenu
+     └── Model
+        ├── RecetaXMenu.cs
+ └── Rol
+     └── Model
+        ├── Rol.cs
+ └── UnidadMedida
+     └── Model
+        ├── UnidadMedida.cs
+ └── Usuario
+     └── Model
+        ├── Usuario.cs
+        
+Esta estructura es más cercana al Domain-Driven Design (DDD) y permite migrar fácilmente cada entidad a su propio microservicio en el futuro si lo deseás.
+
+
+
+----------------------------------------------
+
+Este proyecto es un monolito bien estructurado,es ideal para:
+-Desarrollo inicial rápido.
+
+-Bajo costo de mantenimiento al principio.
+
+-Simplicidad para probar todo en una sola aplicación.
+
+-Ideal para equipos pequeños o proyectos en crecimiento.
