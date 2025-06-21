@@ -1,66 +1,57 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using TiendaNetApi.Rol.DTOs;
+using TiendaNetApi.Rol.Services;
 using TiendaNetApi.Model;
-using TiendaNetApi.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace TiendaNetApi.Controllers
 {
     [ApiController]
-    [Route("api/controller")]
-    public class RolesController : ControllerBase
+    [Route("api/[controller]")]
+    public class RolController : ControllerBase
     {
-        private readonly TiendaDbContext _context;
-
-        public RolesController(TiendaDbContext context)
+        private readonly IRolService _service;
+        public RolController(IRolService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [HttpGet]
-        public async Task<IResult> GetRoles()
+        public async Task<IActionResult> GetAll()
         {
-            var roles = await _context.Roles.ToListAsync();
-            return roles is not null ? Results.Ok(roles) : Results.NotFound();
+            var roles = await _service.GetAllAsync();
+            if (roles is null) return NotFound();
+            return Ok(roles);
         }
-
         [HttpGet("{id}")]
-        public async Task<IResult> GetRol(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var rolEncontrado = await _context.Roles.FirstOrDefaultAsync(r => r.Id == id);
-
-            return rolEncontrado is not null ? Results.Ok(rolEncontrado) : Results.NotFound();
+            var rol = await _service.GetById(id);
+            return rol is not null ? Ok(rol) : NotFound();
         }
-
+        [HttpGet("detalle/{id}")]
+        public async Task<IActionResult> GetByIdDetallado(int id)
+        {
+            var rol = await _service.GetByIdDetallado(id);
+            return rol is not null ? Ok(rol) : NotFound();
+        }
         [HttpPost]
-        public async Task<IResult> CrearRol([FromBody] Rol rol)
+        public async Task<IActionResult> Create([FromBody] RolCreateDTO dto)
         {
-            _context.Roles.Add(rol);
-            await _context.SaveChangesAsync();
-            return Results.Created($"api/rol/{rol.Id}", rol);
+            var creado = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = creado.Id }, creado);
         }
-
         [HttpPut("{id}")]
-        public async Task<IResult> ModificarRol(int id, [FromBody] Rol rol)
+        public async Task<IActionResult> Update(int id, [FromBody] RolUpdateDTO dto)
         {
-            var rolAModificar = await _context.Roles.FindAsync(id);
-            if (rolAModificar == null) return Results.NotFound();
-
-            rolAModificar.Nombre = rol.Nombre;
-            rolAModificar.Id = rol.Id;
-
-            await _context.SaveChangesAsync();
-            return Results.Ok(rolAModificar);
+            var ok = await _service.UpdateAsync(id, dto);
+            return ok ? Ok() : NotFound();
         }
-
-        [HttpDelete("{id}")]
-        public async Task<IResult> EliminarRol(int id)
+        [HttpDelete("fisico/{id}")]
+        public async Task<IActionResult> DeleteFisico(int id)
         {
-            var rolAEliminar = await _context.Roles.FindAsync(id);
-            if (rolAEliminar is null) return Results.NotFound();
-
-            rolAEliminar.Estado = false;
-            await _context.SaveChangesAsync();
-            return Results.NoContent();
+            var deleted = await _service.DeleteFisicoAsync(id);
+            return deleted ? Ok() : NotFound();
         }
+        
     }
 }

@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using TiendaNetApi.Ingredientes.Services;
 using TiendaNetApi.Ingredientes.DTOs;
-using TiendaNetApi.Model;
 
 namespace TiendaNetApi.Controllers
 {
@@ -17,22 +15,22 @@ namespace TiendaNetApi.Controllers
             _service = service;
         }
 
-        [HttpGet()]
-        public async Task<IActionResult> GetIngredientes()
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
         {
             var ingredientes = await _service.GetAllAsync(); 
 
             return ingredientes is not null ? Ok(ingredientes) : NotFound();
         }
         [HttpGet("actives")]
-        public async Task<IActionResult> GetIngredientesActives()
+        public async Task<IActionResult> GetActives()
         {
             var ingredientes = await _service.GetAllActivesAsync();
 
             return ingredientes is not null ? Ok(ingredientes) : NotFound();
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetIngredienteById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             var ingredientes = await _service.GetByIdAsync(id);
 
@@ -40,29 +38,29 @@ namespace TiendaNetApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateIngrediente([FromBody] IngredienteCreateDTO dto)
+        public async Task<IActionResult> Create([FromBody] IngredienteCreateDTO dto)
         {
             var creado = await _service.CreateAsync(dto);
 
-            return CreatedAtAction(nameof(GetIngredienteById), new { id = creado.Id },creado);
+            return CreatedAtAction(nameof(GetById), new { id = creado.Id },creado);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateIngrediente(int id, [FromBody] IngredienteUpdateDTO dto)
+        public async Task<IActionResult> Update(int id, [FromBody] IngredienteUpdateDTO dto)
         {
             var modificado = await _service.UpdateAsync(id, dto);
             return modificado ? Ok() : NotFound();
         }
 
         [HttpDelete("logico/{id}")]
-        public async Task<IActionResult> DeleteLogicoIngrediente(int id)
+        public async Task<IActionResult> DeleteLogico(int id)
         {
             var deleted = await _service.DeleteLogicoAsync(id);
             return deleted ? Ok() : NotFound();
         }
 
         [HttpDelete("fisico/{id}")]
-        public async Task<IActionResult> DeleteFisicoIngrediente(int id)
+        public async Task<IActionResult> DeleteFisico(int id)
         {
             var deleted = await _service.DeleteFisicoAsync(id);
             return deleted ? Ok() : NotFound();

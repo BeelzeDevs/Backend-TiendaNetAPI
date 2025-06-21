@@ -7,14 +7,14 @@ namespace TiendaNetApi.Data
         public TiendaDbContext(DbContextOptions<TiendaDbContext> options) : base(options)
         {
         }
-
-        public DbSet<Rol> Roles { get; set; } = null!;
-        public DbSet<Usuario> Usuarios { get; set; } = null!;
-        public DbSet<UnidadMedida> UnidadesDeMedida { get; set; } = null!;
-        public DbSet<TiendaNetApi.Model.Ingrediente> Ingredientes { get; set; } = null!; // Tenía un error del linter namespace, por eso utilice el Model.Ingrediente
-        public DbSet<Receta> Recetas { get; set; } = null!;
-        public DbSet<IngredienteXReceta> IngredientesXRecetas { get; set; } = null!;
-        public DbSet<Menu> Menus { get; set; } = null!;
-        public DbSet<RecetaXMenu> RecetasXMenu { get; set; } = null!;
+        // Tengo que llamarlos de esta manera por usar Rol,etc Como namespace. Para usar un modelo lo más probable es que tenga de invocarlo de esta manera no tan ambigua
+        public DbSet<TiendaNetApi.Model.Rol> Roles { get; set; } = null!; 
+        public DbSet<TiendaNetApi.Model.Usuario> Usuarios { get; set; } = null!;
+        public DbSet<TiendaNetApi.Model.UnidadMedida> UnidadesMedida { get; set; } = null!;
+        public DbSet<TiendaNetApi.Model.Ingrediente> Ingredientes { get; set; } = null!; 
+        public DbSet<TiendaNetApi.Model.Receta> Recetas { get; set; } = null!;
+        public DbSet<TiendaNetApi.Model.IngredienteXReceta> IngredientesXRecetas { get; set; } = null!;
+        public DbSet<TiendaNetApi.Model.Menu> Menus { get; set; } = null!;
+        public DbSet<TiendaNetApi.Model.RecetaXMenu> RecetasXMenu { get; set; } = null!;
     }
 }

@@ -1,6 +1,6 @@
-namespace TiendaNetApi.DTOs
+namespace TiendaNetApi.Usuario.DTOs
 {
-    public class UsuarioDto()
+    public class UsuarioReadDTO()
     {
         public int Id { get; set; }
         public string NombreUsuario { get; set; } = null!;
