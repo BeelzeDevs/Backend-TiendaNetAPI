@@ -25,45 +25,45 @@ namespace TiendaNetApi.Controllers
         [HttpGet("actives")]
         public async Task<IActionResult> GetActives()
         {
-            var ingredientes = await _service.GetAllActivesAsync();
+            var ingredientesActivos = await _service.GetAllActivesAsync();
 
-            return ingredientes is not null ? Ok(ingredientes) : NotFound();
+            return ingredientesActivos is not null ? Ok(ingredientesActivos) : NotFound();
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var ingredientes = await _service.GetByIdAsync(id);
+            var encontrado = await _service.GetByIdAsync(id);
 
-            return ingredientes is not null ? Ok(ingredientes) : NotFound();
+            return encontrado is not null ? Ok(encontrado) : NotFound();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] IngredienteCreateDTO dto)
         {
-            var creado = await _service.CreateAsync(dto);
+            var created = await _service.CreateAsync(dto);
 
-            return CreatedAtAction(nameof(GetById), new { id = creado.Id },creado);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id },created);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] IngredienteUpdateDTO dto)
         {
-            var modificado = await _service.UpdateAsync(id, dto);
-            return modificado ? Ok() : NotFound();
+            var updated = await _service.UpdateAsync(id, dto);
+            return updated ? Ok() : NotFound();
         }
 
         [HttpDelete("logico/{id}")]
         public async Task<IActionResult> DeleteLogico(int id)
         {
-            var deleted = await _service.DeleteLogicoAsync(id);
-            return deleted ? Ok() : NotFound();
+            var deleteLogico = await _service.DeleteLogicoAsync(id);
+            return deleteLogico ? Ok() : NotFound();
         }
 
         [HttpDelete("fisico/{id}")]
         public async Task<IActionResult> DeleteFisico(int id)
         {
-            var deleted = await _service.DeleteFisicoAsync(id);
-            return deleted ? Ok() : NotFound();
+            var deleteFisico = await _service.DeleteFisicoAsync(id);
+            return deleteFisico ? Ok() : NotFound();
         }
     }
 

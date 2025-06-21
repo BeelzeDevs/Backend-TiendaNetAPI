@@ -25,26 +25,26 @@ namespace TiendaNetApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var rol = await _service.GetById(id);
-            return rol is not null ? Ok(rol) : NotFound();
+            var rolEncontrado = await _service.GetById(id);
+            return rolEncontrado is not null ? Ok(rolEncontrado) : NotFound();
         }
-        [HttpGet("detalle/{id}")]
+        [HttpGet("detalles/{id}")]
         public async Task<IActionResult> GetByIdDetallado(int id)
         {
-            var rol = await _service.GetByIdDetallado(id);
-            return rol is not null ? Ok(rol) : NotFound();
+            var rolDetallado = await _service.GetByIdDetallado(id);
+            return rolDetallado is not null ? Ok(rolDetallado) : NotFound();
         }
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] RolCreateDTO dto)
         {
-            var creado = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = creado.Id }, creado);
+            var created = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] RolUpdateDTO dto)
         {
-            var ok = await _service.UpdateAsync(id, dto);
-            return ok ? Ok() : NotFound();
+            var updated = await _service.UpdateAsync(id, dto);
+            return updated ? Ok() : NotFound();
         }
         [HttpDelete("fisico/{id}")]
         public async Task<IActionResult> DeleteFisico(int id)

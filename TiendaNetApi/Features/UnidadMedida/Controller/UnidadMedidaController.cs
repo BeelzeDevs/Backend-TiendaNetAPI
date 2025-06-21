@@ -30,15 +30,15 @@ namespace TiendaNetApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] UnidadMedidaCreateDTO dto)
         {
-            var creada = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = creada.Id }, creada);
+            var created = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] UnidadMedidaUpdateDTO dto)
         {
-            var ok = await _service.UpdateAsync(id, dto);
-            return ok ? Ok() : NotFound();
+            var updated = await _service.UpdateAsync(id, dto);
+            return updated ? Ok() : NotFound();
         }
 
         [HttpDelete("fisico/{id}")]

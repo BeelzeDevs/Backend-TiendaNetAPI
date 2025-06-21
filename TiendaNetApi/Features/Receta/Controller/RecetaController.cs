@@ -20,17 +20,23 @@ namespace TiendaNetApi.Controllers
             var recetas = await _service.GetAll();
             return recetas is not null ? Ok(recetas) : NotFound();
         }
+        [HttpGet("actives")]
+        public async Task<IActionResult> GetAllActives()
+        {
+            var recetasActivas = await _service.GetAllActives();
+            return recetasActivas is not null ? Ok(recetasActivas) : NotFound();
+        }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var receta = await _service.GetById(id);
-            return receta is not null ? Ok(receta) : NotFound();
+            var encontrado = await _service.GetById(id);
+            return encontrado is not null ? Ok(encontrado) : NotFound();
         }
         [HttpGet("detalles/{id}")]
         public async Task<IActionResult> GetByIdDetallado(int id)
         {
-            var receta = await _service.GetByIdConDetalles(id);
-            return receta is not null ? Ok(receta) : NotFound();
+            var recetaDetallado = await _service.GetByIdConDetalles(id);
+            return recetaDetallado is not null ? Ok(recetaDetallado) : NotFound();
         }
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] RecetaCreateDTO dto)
@@ -50,14 +56,14 @@ namespace TiendaNetApi.Controllers
         [HttpDelete("fisico/{id}")]
         public async Task<IActionResult> DeleteFisico(int id)
         {
-            var deleteFisico = await _service.DeleteFisico(id);
-            return deleteFisico ? Ok() : NotFound();
+            var deletedFisico = await _service.DeleteFisico(id);
+            return deletedFisico ? Ok() : NotFound();
         }
         [HttpDelete("logico/{id}")]
         public async Task<IActionResult> DeleteLogico(int id)
         {
-            var deleteLogico = await _service.DeleteLogico(id);
-            return deleteLogico ? Ok() : NotFound();
+            var deletedLogico = await _service.DeleteLogico(id);
+            return deletedLogico ? Ok() : NotFound();
         }
     }
 }

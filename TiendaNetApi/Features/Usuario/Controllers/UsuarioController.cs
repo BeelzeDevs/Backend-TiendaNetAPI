@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TiendaNetApi.Data;
-using TiendaNetApi.Model;
-using TiendaNetApi.DTOs;
+using TiendaNetApi.Usuario.Services;
+using TiendaNetApi.Usuario.DTOs;
 
 namespace TiendaNetApi.Controllers
 {
@@ -10,80 +10,68 @@ namespace TiendaNetApi.Controllers
     [Route("api/[controller]")]
     public class UsuariosController : ControllerBase
     {
-        private readonly TiendaDbContext _context;
+        private readonly UsuarioService _service;
 
-        public UsuariosController(TiendaDbContext context)
+        public UsuariosController(UsuarioService service)
         {
-            _context = context;
+            _service = service;
         }
 
-        //Get : api/usuarios
         [HttpGet]
-        public async Task<IResult> GetUsuarios()
+        public async Task<IActionResult> GetUsuarios()
         {
-            var usuarios = await _context.Usuarios
-            .Include(u => u.Rol)
-            .ToListAsync();
+            var usuarios = await _service.GetAll();
 
-            return Results.Ok(usuarios);
+            return usuarios is not null ? Ok(usuarios) : NotFound();
+        }
+        [HttpGet("actives")]
+        public async Task<IActionResult> GetAllActives()
+        {
+            var usuariosActivos = await _service.GetAllActives();
+            return Ok(usuariosActivos);
+
         }
 
-        // Get: api/usuarios/5
         [HttpGet("{id}")]
-        public async Task<IResult> GetUsuario(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var usuario = await _context.Usuarios
-            .Include(u => u.Rol)
-            .FirstOrDefaultAsync(u => u.Id == id);
-            if (usuario is null) return Results.NotFound();
-
-            var usuarioADevolver = new UsuarioDto
-            {
-                Id = usuario.Id,
-                NombreUsuario = usuario.NombreUsuario,
-                Contraseña = usuario.Contraseña,
-                Rol = usuario.Rol.Nombre
-            };
-
-            return Results.Ok(usuarioADevolver);
-
+            var encontrado = await _service.GetById(id);
+            return encontrado is not null ? Ok(encontrado) : NotFound();
         }
 
-        // Post: api/usuarios
+        [HttpGet("detalles/{id}")]
+        public async Task<IActionResult> GetbyIdDetallado(int id)
+        {
+            var usuarioDetallado = await _service.GetByIdDetallado(id);
+            return usuarioDetallado is not null ? Ok(usuarioDetallado) : NotFound();
+        }
+
         [HttpPost]
-        public async Task<IResult> CrearUsuario([FromBody] Usuario usuario)
+        public async Task<IActionResult> Create([FromBody] UsuarioCrearDTO dto)
         {
-            _context.Usuarios.Add(usuario);
-            await _context.SaveChangesAsync();
-
-            return Results.Created($"/api/usuarios/{usuario.Id}", usuario);
+            var created = await _service.Create(dto);
+            if (created is null) return NotFound();
+            return CreatedAtAction(nameof(GetById), new { Id = created.Id }, created);
         }
 
-        // Put : api/usuarios/5
         [HttpPut("{id}")]
-        public async Task<IResult> ActualizarUsuario(int id, [FromBody] Usuario usuarioActualizado)
+        public async Task<IActionResult> Update(int id, [FromBody] UsuarioUpdateDTO dto)
         {
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario is null) return Results.NotFound();
-
-            usuario.NombreUsuario = usuarioActualizado.NombreUsuario;
-            usuario.Contraseña = usuarioActualizado.Contraseña;
-            usuario.RolId = usuarioActualizado.RolId;
-
-            await _context.SaveChangesAsync();
-            return Results.Ok(usuario);
+            var updated = await _service.Update(id, dto);
+            return updated ? Ok() : NotFound();
         }
 
-        // DELETE : api/usuarios/5
-        [HttpDelete("{id}")]
-        public async Task<IResult> EliminarUsuario(int id)
+        [HttpDelete("logico/{id}")]
+        public async Task<IActionResult> DeleteLogico(int id)
         {
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario is null) return Results.NotFound();
-
-            _context.Usuarios.Remove(usuario);
-            await _context.SaveChangesAsync();
-            return Results.NoContent();
+            var deletedLogico = await _service.DeleteLogico(id);
+            return deletedLogico ? Ok() : NotFound();
+        }
+        [HttpDelete("fisico/{id}")]
+        public async Task<IActionResult> DeleteFisico(int id)
+        {
+            var deletedFisico = await _service.DeleteFisico(id);
+            return deletedFisico ? Ok() : NotFound();
         }
 
     }
