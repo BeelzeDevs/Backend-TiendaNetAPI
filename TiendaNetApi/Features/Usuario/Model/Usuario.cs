@@ -15,7 +15,7 @@ namespace TiendaNetApi.Model
         public DateTime FechaCreacion { get; set; }
 
         public int RolId { get; set; } // Clave foránea explícita
-        public Rol Rol { get; set; } = null!;
+        public Model.Rol Rol { get; set; } = null!;
     }
 
 }

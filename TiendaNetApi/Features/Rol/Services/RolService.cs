@@ -1,5 +1,4 @@
 using TiendaNetApi.Rol.DTOs;
-using TiendaNetApi.Usuario.DTOs;
 using TiendaNetApi.Data;
 using Microsoft.EntityFrameworkCore;
 using TiendaNetApi.Controllers;
@@ -13,7 +12,7 @@ namespace TiendaNetApi.Rol.Services
         {
             _context = context;
         }
-        public async Task<List<RolReadDTO>> GetAllAsync()
+        public async Task<List<RolReadDTO>> GetAll()
         {
             return await _context.Roles
             .Select(r => new RolReadDTO
@@ -57,7 +56,7 @@ namespace TiendaNetApi.Rol.Services
             };
 
         }
-        public async Task<RolReadDTO> CreateAsync(RolCreateDTO dto)
+        public async Task<RolReadDTO> Create(RolCreateDTO dto)
         {
             var rol = new TiendaNetApi.Model.Rol { Nombre = dto.Nombre };
             _context.Roles.Add(rol);
@@ -65,7 +64,7 @@ namespace TiendaNetApi.Rol.Services
             return new RolReadDTO { Id = rol.Id, Nombre = rol.Nombre };
 
         }
-        public async Task<bool> UpdateAsync(int id, RolUpdateDTO dto)
+        public async Task<bool> Update(int id, RolUpdateDTO dto)
         {
             var rol = await _context.Roles.FindAsync(id);
             if (rol is null) return false;
@@ -75,7 +74,7 @@ namespace TiendaNetApi.Rol.Services
             return true;
 
         }
-        public async Task<bool> DeleteFisicoAsync(int id)
+        public async Task<bool> DeleteFisico(int id)
         {
             var rol = await _context.Roles.FindAsync(id);
             if (rol is null) return false;

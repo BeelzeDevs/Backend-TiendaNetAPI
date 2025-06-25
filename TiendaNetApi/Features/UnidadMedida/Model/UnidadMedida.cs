@@ -6,6 +6,6 @@ namespace TiendaNetApi.Model
         public int Id{ get; set; }
         public string Nombre { get; set; } = null!;
 
-        public ICollection<Ingrediente> Ingredientes { get; set; } = new List<Ingrediente>();
+        public ICollection<Model.Ingrediente> Ingredientes { get; set; } = new List<Model.Ingrediente>();
     }
 }

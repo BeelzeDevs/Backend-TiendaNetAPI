@@ -6,7 +6,7 @@ namespace TiendaNetApi.Model
         public int Id { get; set; }
         public string Nombre { get; set; } = null!;
 
-        public ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
+        public ICollection<Model.Usuario> Usuarios { get; set; } = new List<Model.Usuario>();
     }
 
 }

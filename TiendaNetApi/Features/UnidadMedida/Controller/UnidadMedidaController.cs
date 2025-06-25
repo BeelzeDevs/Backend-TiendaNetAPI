@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TiendaNetApi.UnidadMedida.DTOs;
 using TiendaNetApi.UnidadMedida.Services;
@@ -6,6 +8,7 @@ namespace TiendaNetApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Policy = "SoloAdmin")]
     public class UnidadMedidaController : ControllerBase
     {
         private readonly IUnidadMedidaService _service;
@@ -24,7 +27,7 @@ namespace TiendaNetApi.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var unidad = await _service.GetByIdAsync(id);
-            return unidad is null ? NotFound() : Ok(unidad);
+            return unidad is not null ? Ok(unidad) : NotFound($"Unidad de medida no encontrada, datos incorrectos UnidadMedidaId = {id}");
         }
 
         [HttpPost]
@@ -38,14 +41,14 @@ namespace TiendaNetApi.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] UnidadMedidaUpdateDTO dto)
         {
             var updated = await _service.UpdateAsync(id, dto);
-            return updated ? Ok() : NotFound();
+            return updated ? Ok("Unidad de medida actualizada con éxito.") : NotFound($"Unidad de medida no encontrada, datos incorrectos UnidadMedidaId = {id} \nUnindadMedidaDTO = {dto}");
         }
 
         [HttpDelete("fisico/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var deleted = await _service.DeleteFisicoAsync(id);
-            return deleted ? Ok() : NotFound();
+            return deleted ? Ok("Unidad de medida eliminada físicamente con éxito.") : NotFound($"Unidad de medida en uso \nUnidad de medida no encontrada UnidadMedidaId = {id}");
         }
     }    
 }

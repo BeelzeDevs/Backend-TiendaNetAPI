@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TiendaNetApi.Ingredientes.Services;
 using TiendaNetApi.Ingredientes.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TiendaNetApi.Controllers
 {
@@ -20,23 +21,24 @@ namespace TiendaNetApi.Controllers
         {
             var ingredientes = await _service.GetAllAsync(); 
 
-            return ingredientes is not null ? Ok(ingredientes) : NotFound();
+            return ingredientes is not null ? Ok(ingredientes) : NotFound("No se encontró ingredientes");
         }
         [HttpGet("actives")]
         public async Task<IActionResult> GetActives()
         {
             var ingredientesActivos = await _service.GetAllActivesAsync();
 
-            return ingredientesActivos is not null ? Ok(ingredientesActivos) : NotFound();
+            return ingredientesActivos is not null ? Ok(ingredientesActivos) : NotFound("No se encontró Ingredientes activos");
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var encontrado = await _service.GetByIdAsync(id);
 
-            return encontrado is not null ? Ok(encontrado) : NotFound();
+            return encontrado is not null ? Ok(encontrado) : NotFound($"No se encontró el Ingrediente, datos incorrectos IdIngrediente = {id}");
         }
-
+        
+        [Authorize(Policy = "SoloAdmin")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] IngredienteCreateDTO dto)
         {
@@ -45,25 +47,28 @@ namespace TiendaNetApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = created.Id },created);
         }
 
+        [Authorize(Policy = "SoloAdmin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] IngredienteUpdateDTO dto)
         {
             var updated = await _service.UpdateAsync(id, dto);
-            return updated ? Ok() : NotFound();
+            return updated ? Ok("Ingrediente actualizado correctamente") : NotFound($"No se encontró el Ingrediente, datos incorrectos IdIngrediente ={id} \nIngredienteUpdateDTO = {dto}");
         }
 
+        [Authorize(Policy = "SoloAdmin")]
         [HttpDelete("logico/{id}")]
         public async Task<IActionResult> DeleteLogico(int id)
         {
             var deleteLogico = await _service.DeleteLogicoAsync(id);
-            return deleteLogico ? Ok() : NotFound();
+            return deleteLogico ? Ok("Ingrediente borrado lógicamente correctamente") : NotFound($"No se encontró el Ingrediente, datos incorrectos, IdIngrediente = {id}");
         }
 
+        [Authorize(Policy = "SoloAdmin")]
         [HttpDelete("fisico/{id}")]
         public async Task<IActionResult> DeleteFisico(int id)
         {
             var deleteFisico = await _service.DeleteFisicoAsync(id);
-            return deleteFisico ? Ok() : NotFound();
+            return deleteFisico ? Ok("Ingrediente eliminado físicamente correctamente") : NotFound($"Ingrediente en uso | IngredienteId = {id} no encontrado");
         }
     }
 

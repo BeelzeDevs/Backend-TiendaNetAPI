@@ -10,8 +10,8 @@ namespace TiendaNetApi.Model
         public decimal PrecioReceta { get; set; }
         public bool EstadoReceta { get; set; } = true;
 
-        public ICollection<IngredienteXReceta> IngredientesXRecetas { get; set; } = new List<IngredienteXReceta>();
-        public ICollection<RecetaXMenu> RecetasXMenus { get; set; } = new List<RecetaXMenu>();
+        public ICollection<Model.IngredienteXReceta> IngredientesXRecetas { get; set; } = new List<Model.IngredienteXReceta>();
+        public ICollection<Model.RecetaXMenu> RecetasXMenus { get; set; } = new List<Model.RecetaXMenu>();
 
     }
 }

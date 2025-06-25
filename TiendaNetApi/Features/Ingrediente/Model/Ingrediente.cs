@@ -12,7 +12,7 @@ namespace TiendaNetApi.Model
         public bool EstadoIngrediente { get; set; } = true;
 
         public int UnidadMedidaId { get; set; } // Foranea
-        public UnidadMedida UnidadMedida { get; set; } = null!; // navegacion
-        public ICollection<IngredienteXReceta> IngredientesXRecetas { get; set; } = new List<IngredienteXReceta>();
+        public Model.UnidadMedida UnidadMedida { get; set; } = null!; // navegacion
+        public ICollection<Model.IngredienteXReceta> IngredientesXRecetas { get; set; } = new List<Model.IngredienteXReceta>();
     }
 }

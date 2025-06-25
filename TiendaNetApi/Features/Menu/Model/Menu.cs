@@ -7,6 +7,6 @@ namespace TiendaNetApi.Model
         public string TituloMenu { get; set; } = null!;
         public bool EstadoMenu { get; set; } = true;
 
-        public ICollection<RecetaXMenu> RecetasXMenus { get; set; } = new List<RecetaXMenu>();
+        public ICollection<Model.RecetaXMenu> RecetasXMenus { get; set; } = new List<Model.RecetaXMenu>();
     }
 }

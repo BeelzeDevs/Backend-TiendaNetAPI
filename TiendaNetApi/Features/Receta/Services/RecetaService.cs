@@ -137,9 +137,15 @@ namespace TiendaNetApi.Receta.Services
         }
         public async Task<bool> DeleteFisico(int id)
         {
-            var receta = await _context.Recetas.FindAsync(id);
+            var receta = await _context.Recetas
+            .Include(r => r.RecetasXMenus)
+            .Include(r => r.IngredientesXRecetas)
+            .FirstOrDefaultAsync(r=> r.Id == id);
+
             if (receta is null) return false;
 
+            _context.RecetasXMenu.RemoveRange(receta.RecetasXMenus);
+            _context.IngredientesXRecetas.RemoveRange(receta.IngredientesXRecetas);
             _context.Recetas.Remove(receta);
             await _context.SaveChangesAsync();
             return true;

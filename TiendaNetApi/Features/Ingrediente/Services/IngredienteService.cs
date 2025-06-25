@@ -105,9 +105,12 @@ namespace TiendaNetApi.Services
         }
         public async Task<bool> DeleteFisicoAsync(int id)
         {
-            var ingrediente = await _context.Ingredientes.FindAsync(id);
+            var ingrediente = await _context.Ingredientes
+            .Include(i => i.IngredientesXRecetas)
+            .FirstOrDefaultAsync(i=> i.Id == id);
             if (ingrediente is null) return false;
 
+            _context.IngredientesXRecetas.RemoveRange(ingrediente.IngredientesXRecetas);
             _context.Ingredientes.Remove(ingrediente);
             await _context.SaveChangesAsync();
             return true;
