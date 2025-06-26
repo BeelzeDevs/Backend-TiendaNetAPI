@@ -1,8 +1,0 @@
-# .gitignore
-**/bin/
-**/obj/
-*.user
-*.vs/
-.vscode/
-*.log
-*.DS_Store
