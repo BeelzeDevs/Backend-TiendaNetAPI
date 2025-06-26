@@ -6,7 +6,19 @@
 .vscode/
 *.log
 *.DS_Store
-/bin
-/obj
-.ignore
+# Bin y Obj
+[Bb]in/
+[Oo]bj/
+obj/
+Obj/
+Bin/
+bin/
 
+# VS Code
+.vscode/
+
+# log y .vs 
+*.log
+*.vs/
+
+.ignore
