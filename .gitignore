@@ -6,3 +6,7 @@
 .vscode/
 *.log
 *.DS_Store
+/bin
+/obj
+.ignore
+
