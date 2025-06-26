@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 using TiendaNetApi.Data;
 using TiendaNetApi.Auth.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -22,7 +23,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // Agregar el DbContext con la cadena de conexión
 builder.Services.AddDbContext<TiendaDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Habilitar sistema de controladores y la inyección de dependencias (DI)
 builder.Services.AddControllers();

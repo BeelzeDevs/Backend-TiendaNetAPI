@@ -85,3 +85,5 @@ F:\CODERHOUSE\Repositorio\TiendaNet\TiendaNetApi\obj\Debug\net8.0\TiendaNetApi.p
 F:\CODERHOUSE\Repositorio\TiendaNet\TiendaNetApi\obj\Debug\net8.0\TiendaNetApi.genruntimeconfig.cache
 F:\CODERHOUSE\Repositorio\TiendaNet\TiendaNetApi\obj\Debug\net8.0\ref\TiendaNetApi.dll
 F:\CODERHOUSE\Repositorio\TiendaNet\TiendaNetApi\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+F:\CODERHOUSE\Repositorio\TiendaNet\tiendanetapi\bin\Debug\net8.0\Npgsql.dll
+F:\CODERHOUSE\Repositorio\TiendaNet\tiendanetapi\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

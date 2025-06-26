@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QPQmzdbGzLk=",
+  "dgSpecHash": "t7JpadCBIwA=",
   "success": true,
-  "projectFilePath": "F:\\CODERHOUSE\\Repositorio\\TiendaNet\\TiendaNetApi\\TiendaNetApi.csproj",
+  "projectFilePath": "F:\\CODERHOUSE\\Repositorio\\TiendaNet\\tiendanetapi\\TiendaNetApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Beelzemoth\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Beelzemoth\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
@@ -37,6 +37,8 @@
     "C:\\Users\\Beelzemoth\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
     "C:\\Users\\Beelzemoth\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\Beelzemoth\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\Beelzemoth\\.nuget\\packages\\npgsql\\9.0.3\\npgsql.9.0.3.nupkg.sha512",
+    "C:\\Users\\Beelzemoth\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\9.0.4\\npgsql.entityframeworkcore.postgresql.9.0.4.nupkg.sha512",
     "C:\\Users\\Beelzemoth\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\Beelzemoth\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "C:\\Users\\Beelzemoth\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
