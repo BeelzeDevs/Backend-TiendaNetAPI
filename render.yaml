@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: tienda-net-api
+    name: tiendanetapi
     runtime: docker
     repo: https://github.com/BeelzeDevs/Backend-TiendaNetAPI
     branch: deploy
