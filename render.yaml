@@ -9,6 +9,6 @@ services:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
       - key: ConnectionStrings__DefaultConnection
-        value: Host=ep-rough-voice-acpgbxuh-pooler.sa-east-1.aws.neon.tech;Database=neondb;Username=neondb_owner;Password=npg_pAtHGPs4jUx8;SSL Mode=Require;Trust Server Certificate=true
+        value: "Host=ep-rough-voice-acpgbxuh-pooler.sa-east-1.aws.neon.tech;Database=neondb;Username=neondb_owner;Password=npg_pAtHGPs4jUx8;SSL Mode=Require;Trust Server Certificate=true"
       - key: Jwt__Key
         value: esta-es-una-clave-secreta-para-token
