@@ -28,7 +28,6 @@ var connString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
 builder.Services.AddDbContext<TiendaDbContext>(options =>
     options.UseNpgsql(connString));
 
-Console.WriteLine("MANUAL DB_CONNECTION_STRING: " + connString);
 // Habilitar sistema de controladores y la inyección de dependencias (DI)
 builder.Services.AddControllers();
 // Services
