@@ -112,7 +112,8 @@ app.UseSwaggerUI();
 //     app.UseSwagger();
 //     app.UseSwaggerUI();
 // }
-Console.WriteLine("CONN STRING: " + builder.Configuration.GetConnectionString("DefaultConnection"));
+Console.WriteLine("CONN FROM ENV: " + Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection"));
+Console.WriteLine("CONN FROM CONFIG: " + builder.Configuration.GetConnectionString("DefaultConnection"));
 // app.UseHttpsRedirection();
 
 app.UseAuthentication();
