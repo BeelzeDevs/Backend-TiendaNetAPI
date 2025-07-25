@@ -21,10 +21,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// Agregar el DbContext con la cadena de conexión
-builder.Services.AddDbContext<TiendaDbContext>(options =>
-options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Agregar el DbContext con la cadena de conexión
+
+var connString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+builder.Services.AddDbContext<TiendaDbContext>(options =>
+    options.UseNpgsql(connString));
+
+Console.WriteLine("MANUAL DB_CONNECTION_STRING: " + connString);
 // Habilitar sistema de controladores y la inyección de dependencias (DI)
 builder.Services.AddControllers();
 // Services
@@ -112,8 +116,7 @@ app.UseSwaggerUI();
 //     app.UseSwagger();
 //     app.UseSwaggerUI();
 // }
-Console.WriteLine("CONN FROM ENV: " + Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection"));
-Console.WriteLine("CONN FROM CONFIG: " + builder.Configuration.GetConnectionString("DefaultConnection"));
+
 // app.UseHttpsRedirection();
 
 app.UseAuthentication();
