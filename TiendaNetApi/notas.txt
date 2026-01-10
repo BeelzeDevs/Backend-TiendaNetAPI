@@ -24,7 +24,7 @@
      └── Model
         ├── Usuario.cs
         
-Esta estructura es más cercana al Domain-Driven Design (DDD) y permite migrar fácilmente cada entidad a su propio microservicio en el futuro si lo deseás.
+Esta estructura es cercana al Domain-Driven Design (DDD) y permite migrar fácilmente cada entidad a su propio microservicio.
 
 
 
